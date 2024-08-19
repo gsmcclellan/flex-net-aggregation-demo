@@ -1,0 +1,5 @@
+Account,AccountType,Value,NetValue,NetValueAll,IsNegative,NegativeMultiplier,NegativeMultiplierNet
+misc,Expenses,5,-5,-5,1,-1,1
+other,Expenses,5,-5,-5,1,-1,1
+taxes,Revenues,8,8,-8,0,1,-1
+grants,Revenues,4,4,-4,0,1,-1
