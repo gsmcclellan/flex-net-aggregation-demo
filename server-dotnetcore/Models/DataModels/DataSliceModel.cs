@@ -582,6 +582,13 @@ namespace NetCoreServer.Models
                 {
                     return validDataColumnIndexes.Max(index => column[index].Value);
                 }
+                // Net Aggregation logic here
+                if (func == "net")
+                {
+                    return validDataColumnIndexes.Sum((index) => {
+                        return column[index].Value * -1;
+                    });
+                }
             }
             return 0;
         }

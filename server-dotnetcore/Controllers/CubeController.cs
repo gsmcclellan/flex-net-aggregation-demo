@@ -177,7 +177,7 @@ namespace NetCoreServer.Controllers
                     schema.Sorted = false;
                     schema.Aggregations.Any = new List<string> { "count", "distinctcount" };
                     schema.Aggregations.Date = new List<string> { "count", "distinctcount", "min", "max" };
-                    schema.Aggregations.Number = new List<string> { "sum", "average", "count", "distinctcount", "min", "max" };
+                    schema.Aggregations.Number = new List<string> { "sum", "average", "count", "distinctcount", "min", "max", "net" };
                     schema.Filters.Any.Members = true;
                     schema.Filters.Any.Query = true;
                     schema.Filters.Any.ValueQuery = true;
