@@ -511,6 +511,7 @@ namespace NetCoreServer.Models
                 valrequest =>
                 {
                     var calcValue = CalcValue(valrequest.Field, valrequest.Func);
+
                     if (!double.IsNaN(calcValue))
                     {
                         if (!response.Values.ContainsKey(valrequest.Field.UniqueName))
@@ -536,6 +537,7 @@ namespace NetCoreServer.Models
         {
             if (field.Type == ColumnType.stringType)
             {
+                Console.WriteLine("\n\n\ntest\n\n\ntest\n\n\ntest\n\n\ntest\n\n\ntest");
                 var validDataColumnIndexes = DataColumnIndexes.Where(index => Data.GetColumn<string>(field.UniqueName)[index] != null).DefaultIfEmpty(-1).ToArray();
                 if (validDataColumnIndexes[0] == -1)
                 {
@@ -566,7 +568,8 @@ namespace NetCoreServer.Models
                 {
                     return validDataColumnIndexes.Select(index => column[index]).Distinct().ToList().Count;
                 }
-                if (func == "sum" || func == "none")
+                if (func == "sum" || func == "none" || func == "netgrandtotal")
+                // Net here, can't do as normal aggregate because we only want the grand total to be net
                 {
                     return validDataColumnIndexes.Sum(index => column[index].Value);
                 }
@@ -585,9 +588,10 @@ namespace NetCoreServer.Models
                 // Net Aggregation logic here
                 if (func == "net")
                 {
-                    return validDataColumnIndexes.Sum((index) => {
-                        return column[index].Value * -1;
-                    });
+                    var isNegativeColumn = Data.GetColumn<double?>("IsNegative");
+
+                    //return validDataColumnIndexes.Sum(index => column[index].Value);
+                    return validDataColumnIndexes.Sum(index => isNegativeColumn[index].Value == 1 ? column[index].Value * -1: column[index].Value);
                 }
             }
             return 0;

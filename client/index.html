@@ -20,31 +20,35 @@
                 "dataSource": {
                     "type": "api",
                     "url": "http://localhost:3400/api/cube",
-                    "index": "fm-product-sales"
+                    "index": "net-aggregation-test"
                 },
                 "slice": {
                     "rows": [{
-                        "uniqueName": "Country"
-                    }, {
-                        "uniqueName": "[Measures]"
-                    }],
-                    "columns": [{
-                        "uniqueName": "Category"
-                    }],
-                    "measures": [{
-                            "uniqueName": "Price",
-                            "aggregation": "sum"
+                            "uniqueName": "AccountType"
                         },
                         {
-                            "uniqueName": "Quantity",
-                            "aggregation": "average"
+                            "uniqueName": "Account"
                         }
+                    ],
+                    "columns": [
+                        {
+                            "uniqueName": "[Measures]"
+                        }
+                    ],
+                    "measures": [ // Account,AccountType,Value,NetValue,NetValueAll,IsNegative,NegativeMultiplier,NegativeMultiplierNet
+                        {
+                            "uniqueName": "Value",
+                                "aggregation": "net"
+                        },
+                        {
+                            "uniqueName": "IsNegative"
+                        },
+                        {
+                            "uniqueName": "NetValue",
+                            "aggregation": "sum"
+                        },
                     ]
-                },
-                "formats": [{
-                    "name": "",
-                    "maxDecimalPlaces": 2
-                }]
+                }
             }
         });
     </script>

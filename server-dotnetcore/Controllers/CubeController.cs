@@ -75,7 +75,7 @@ namespace NetCoreServer.Controllers
             {
                 try
                 {
-                    response = await GetShema(request.Index);
+                    response = await GetSchema(request.Index);
                 }
                 catch (Exception e)
                 {
@@ -150,7 +150,7 @@ namespace NetCoreServer.Controllers
                 {
                     Console.WriteLine(e.StackTrace);
                     Response.StatusCode = 500;
-                    return Content("Server error");
+                    return Content(e.StackTrace);
                 }
             }
             if (response == null)
@@ -166,7 +166,7 @@ namespace NetCoreServer.Controllers
         /// </summary>
         /// <param name="index">index</param>
         /// <returns></returns>
-        private async Task<Schema> GetShema(string index)
+        private async Task<Schema> GetSchema(string index)
         {
             return await _cache.GetOrCreateAsync(index + "schema",
                 async (cacheEntry) =>
